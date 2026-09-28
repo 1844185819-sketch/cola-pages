@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jenny · Welcome To My Planet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2b2b2b;
+    --soft: #7a7a7a;
+    --pink: #f4e3e6;
+    --blue: #dce6f2;
+    --paper: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", sans-serif;
+    color: var(--ink);
+    background-color: var(--paper);
+    /* 很淡的波点背景 */
+    background-image: radial-gradient(circle, rgba(210, 160, 170, 0.18) 2px, transparent 2.5px),
+                      radial-gradient(circle, rgba(160, 180, 215, 0.12) 2px, transparent 2.5px);
+    background-size: 34px 34px, 34px 34px;
+    background-position: 0 0, 17px 17px;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+  }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- 顶部 ---------- */
+  header { padding: 90px 0 50px; }
+  .nav {
+    position: relative; z-index: 1;
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+  }
+  .nav a {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #4a4438; text-decoration: none;
+    padding: 13px 24px 17px;
+    background-color: #efe9db;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.10'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      repeating-linear-gradient(0deg, rgba(120,110,90,0.055) 0 1px, transparent 1px 4px);
+    border-radius: 4px 4px 18px 18px;
+    filter: drop-shadow(0 3px 3px rgba(90,75,60,0.18));
+    transition: transform .2s ease, color .2s ease;
+  }
+  .nav a:hover { transform: translateY(-4px); color: #2e2a22; }
+
+  .hero { display: flex; align-items: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
+  .hero-text { flex: 1 1 0; min-width: 0; }
+  .hello {
+    font-family: "Snell Roundhand", "Savoye LET", "Kaiti SC", cursive;
+    font-size: 22px; color: var(--soft);
+  }
+  .big-title {
+    font-family: "Playfair Display", Didot, Georgia, serif;
+    margin: 14px 0 20px;
+    line-height: 1.08;
+    color: var(--ink);
+  }
+  .big-title .script-top {
+    display: inline-block;
+    font-family: "Playfair Display", Didot, Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(40px, 6vw, 60px);
+    color: #e8a9b5;
+    margin: 0 0 0 4px;
+  }
+  .big-title .to-my {
+    display: inline-block;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(26px, 4vw, 40px);
+    letter-spacing: 0.24em;
+    color: var(--soft);
+    margin: 0 0 0 14px;
+  }
+  .big-title .planet {
+    display: block;
+    position: relative;
+    font-size: clamp(52px, 8.4vw, 90px);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #7d94b8;
+  }
+  .big-title .planet .orbit {
+    position: absolute;
+    top: -22px;
+    right: -10px;
+    width: 52px;
+    transform: rotate(10deg);
+  }
+  .tags { font-size: 15px; color: var(--soft); }
+  .tags span { margin-right: 14px; }
+  .intro {
+    margin-top: 22px; max-width: 520px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15.5px; color: #4d4d4d; line-height: 1.95;
+  }
+
+  /* 首页右侧照片 */
+  .hero-photos {
+    display: flex; flex-direction: row;
+    gap: 22px; flex: 0 0 auto;
+    align-items: flex-start;
+    margin-left: auto;
+  }
+  .hero-photos .polaroid { margin: 0; --w: 182px; }
+  /* 照片内侧的复古米灰边框 */
+  .old-frame {
+    display: block;
+    padding: 9px;
+    background-color: #e6dfd1;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.10'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+    border-radius: 2px;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.65),
+      inset 0 0 12px rgba(120,100,80,0.3),
+      0 2px 5px rgba(0,0,0,0.1);
+  }
+  .old-frame img { display: block; width: 100%; }
+
+  /* 拍立得相框 */
+  .polaroid {
+    background: #fff;
+    padding: 11px 11px 38px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    transform: rotate(var(--tilt, 2.5deg));
+    width: var(--w, 240px);
+    transition: transform .3s ease;
+    position: relative;
+    margin: 0;
+  }
+  .polaroid:hover { transform: rotate(0deg) scale(1.03); z-index: 3; }
+  .polaroid img { width: 100%; display: block; }
+  .polaroid .caption {
+    font-family: "Snell Roundhand", "Savoye LET", "Kaiti SC", cursive;
+    text-align: center; color: var(--soft); font-size: 16px; margin-top: 10px;
+  }
+  .polaroid .season {
+    position: absolute; top: -14px; right: -10px;
+    font-size: 20px;
+    transform: rotate(12deg);
+  }
+
+  /* ---------- 分区 ---------- */
+  section { padding: 55px 0 15px; }
+  .sec-title {
+    display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px;
+  }
+  .sec-title .zh { font-size: 26px; font-weight: 600; }
+  .sec-title .en {
+    font-family: "Courier New", monospace;
+    font-size: 14px; color: #e8b4bd;
+  }
+  .sec-title::after {
+    content: ""; flex: 1; height: 1px;
+    background: linear-gradient(to right, #e5d5d8, transparent);
+  }
+
+  /* 关于我 */
+  .about-cards { display: flex; gap: 18px; flex-wrap: wrap; }
+  .chip {
+    background: rgba(255,255,255,0.85);
+    border: 1px solid #eee3e5;
+    border-radius: 18px;
+    padding: 16px 22px;
+    font-size: 14.5px; color: #4d4d4d;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+    flex: 1 1 200px;
+  }
+  .chip b { display: block; font-size: 15.5px; margin-bottom: 4px; color: var(--ink); }
+
+  /* 经历 */
+  .exp {
+    background: rgba(255,255,255,0.88);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  }
+  .exp-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+  .exp-head .role { font-weight: 600; font-size: 16.5px; }
+  .exp-head .co { color: var(--soft); font-size: 14.5px; }
+  .exp-head .time { color: #c9a2ab; font-size: 13.5px; font-family: "Courier New", monospace; }
+  .exp ul { margin: 12px 0 0 0; list-style: none; }
+  .exp li {
+    font-size: 14.5px; color: #4d4d4d; padding-left: 20px; position: relative; margin-bottom: 8px;
+  }
+  .exp li::before { content: "·"; position: absolute; left: 6px; color: #e8b4bd; font-weight: bold; }
+  .exp li b { color: var(--ink); }
+
+  /* 技能 */
+  .skills { display: flex; flex-wrap: wrap; gap: 12px; }
+  .tag {
+    background: var(--pink); border-radius: 999px;
+    padding: 7px 18px; font-size: 13.5px; color: #6b555a;
+  }
+  .tag.alt { background: var(--blue); color: #4f6076; }
+  .cert { font-size: 14px; color: var(--soft); margin-top: 18px; }
+
+  /* 联系 */
+  .contact { text-align: center; padding: 60px 0 80px; }
+  .contact .hand {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 27px; letter-spacing: 0.03em; margin-bottom: 16px;
+  }
+  .contact .reach {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 17px; letter-spacing: 0.03em; margin-top: 6px; color: #4a4438;
+  }
+  .contact .reach a { color: #4a4438; border-bottom: 1px dashed #b39b8e; }
+  .contact a {
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px dashed #c9a2ab;
+  }
+  .contact .note { font-size: 13px; color: #b5b5b5; margin-top: 26px; }
+
+  /* ---------- 资料夹 ---------- */
+  html { scroll-behavior: smooth; }
+  .folder-scene { padding: 46px 0 0; }
+  .folder-stage { position: relative; height: 300px; }
+  .folder-btn {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .folder-btn img {
+    width: 140px; height: auto; display: block;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.08));
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .folder-stage.open .folder-btn img { transform: translateY(4px) rotate(-3deg) scale(1.05); }
+  .folder-hint {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 17px; letter-spacing: 0.05em; color: var(--soft);
+  }
+  .pop-icon {
+    position: absolute; left: 50%; bottom: 150px;
+    background: none; border: none; cursor: pointer;
+    opacity: 0; pointer-events: none;
+    transform: translateX(-50%) translateY(46px) scale(0.4) rotate(12deg);
+    transition: opacity .4s ease, transform .6s cubic-bezier(.34,1.56,.64,1);
+    transition-delay: calc(var(--i) * 0.09s);
+    z-index: 2;
+  }
+  .folder-stage.open .pop-icon { opacity: 1; pointer-events: auto; }
+  .folder-stage.open .pop-icon.p0 { transform: translateX(calc(-50% - 165px)) translateY(-6px) scale(1.12) rotate(-7deg); }
+  .folder-stage.open .pop-icon.p1 { transform: translateX(-50%) translateY(-34px) scale(1.12) rotate(1deg); }
+  .folder-stage.open .pop-icon.p2 { transform: translateX(calc(-50% + 165px)) translateY(-6px) scale(1.12) rotate(7deg); }
+  .pop-paper {
+    display: flex; align-items: center; justify-content: center;
+    width: 100px; height: 100px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 24px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+    transition: transform .25s ease;
+  }
+  .pop-icon:hover .pop-paper { transform: translateY(-5px) rotate(-3deg); }
+  .pop-paper svg { width: 54px; height: 54px; }
+  .pop-label {
+    display: block; margin-top: 9px;
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 16px; letter-spacing: 0.06em;
+    color: var(--ink);
+  }
+
+  /* 作品集占位 */
+  .portfolio-soon {
+    border: 1.6px dashed #d9c3c9;
+    border-radius: 20px;
+    text-align: center;
+    padding: 44px 20px;
+    color: #9a8288;
+  }
+  .portfolio-soon .hand2 {
+    font-family: "Kaiti SC", "STKaiti", cursive;
+    font-size: 20px; display: block; margin-bottom: 6px;
+  }
+  .portfolio-soon span { font-size: 13.5px; color: #b9a6ab; }
+
+  /* 轻提示 */
+  .toast {
+    position: fixed; left: 50%; bottom: 40px;
+    transform: translateX(-50%) translateY(20px);
+    background: #fff; border: 1px solid #eee3e5; border-radius: 999px;
+    padding: 10px 26px;
+    font-family: "Kaiti SC", "STKaiti", cursive;
+    font-size: 15px; color: var(--ink);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    opacity: 0; pointer-events: none;
+    transition: all .35s ease; z-index: 99;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---------- 背景点缀 ---------- */
+  header, .folder-scene, .contact { position: relative; }
+  .deco {
+    position: absolute; z-index: -1;
+    pointer-events: none; opacity: 0.85;
+  }
+  .deco.float { animation: floaty 5s ease-in-out infinite alternate; }
+  .deco.float2 { animation: floaty 6s ease-in-out 1.2s infinite alternate; }
+  @keyframes floaty {
+    from { transform: translateY(-4px) rotate(-4deg); }
+    to { transform: translateY(4px) rotate(4deg); }
+  }
+  .lace {
+    position: absolute; z-index: -1; pointer-events: none;
+    filter: drop-shadow(0 5px 10px rgba(122, 92, 108, 0.28));
+  }
+
+  /* ---------- 页面切换 ---------- */
+  .page-view { display: none; }
+  .page-view.active { display: block; animation: fadeUp .5s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(26px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  body.viewing .folder-scene { display: none; }
+  .back-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: "Kaiti SC", "STKaiti", cursive;
+    font-size: 15px; color: var(--soft);
+    padding: 0; margin-bottom: 16px;
+  }
+  .back-btn:hover { color: var(--ink); }
+
+  footer { text-align: center; padding: 30px 0; font-size: 12.5px; color: #c0c0c0; }
+
+  @media (max-width: 640px) {
+    header { padding-top: 60px; }
+    .hero { gap: 30px; justify-content: center; text-align: center; }
+    .nav { justify-content: center; }
+    .nav a { padding: 11px 16px 14px; font-size: 12px; }
+    .hero-photos { flex-wrap: wrap; justify-content: center; gap: 20px 14px; }
+    .hero-photos .polaroid { --w: calc(50% - 8px); }
+    .hero-photos .polaroid + .polaroid { margin-top: 18px; }
+    .big-title .planet .orbit { width: 48px; top: -20px; right: -6px; }
+    .folder-stage.open .pop-icon.p0 { transform: translateX(calc(-50% - 104px)) translateY(0) scale(0.82) rotate(-7deg); }
+    .folder-stage.open .pop-icon.p1 { transform: translateX(-50%) translateY(-22px) scale(0.82) rotate(1deg); }
+    .folder-stage.open .pop-icon.p2 { transform: translateX(calc(-50% + 104px)) translateY(0) scale(0.82) rotate(7deg); }
+    .pop-paper { width: 74px; height: 74px; }
+    .pop-paper svg { width: 44px; height: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <span class="deco float" style="top:58px; right:29%"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="#bcd0ec"/></svg></span>
+    <span class="deco" style="top:112px; left:47%"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="#f2c7cf"/></svg></span>
+    <span class="deco" style="top:152px; right:2.5%"><svg width="36" height="16" viewBox="0 0 36 16"><circle cx="5" cy="8" r="2.6" fill="#ecd8dc"/><circle cx="17" cy="8" r="2.6" fill="#c9d6ea"/><circle cx="29" cy="8" r="2.6" fill="#f2c7cf"/></svg></span>
+    <span class="deco" style="bottom:120px; left:3%"><svg width="92" height="20" viewBox="0 0 92 20"><path d="M2 12c10-8 20-8 30 0s20 8 30 0 20-8 28 0" stroke="#b9c9e2" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></span>
+    <span class="deco float2" style="bottom:44px; right:4%"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="#f2c7cf"/></svg></span>
+    <img class="lace" src="images/lace-heart.png" style="top:120px; left:-22px; width:150px; transform:rotate(-14deg)" alt="">
+    <img class="lace" src="images/lace-round.png" style="top:230px; right:-20px; width:170px; transform:rotate(12deg)" alt="">
+    <nav class="nav">
+      <a href="#" data-view="about">About Me</a>
+      <a href="#" data-view="education">Education</a>
+      <a href="#" data-view="exp">Experience</a>
+      <a href="#" data-view="skills">Skills</a>
+      <a href="#" data-view="portfolio">Portfolio</a>
+    </nav>
+    <div class="hero">
+      <div class="hero-text">
+        <p class="hello">Hi, I'm Jenny 👋</p>
+        <div class="big-title">
+          <span class="script-top">WELCOME</span>
+          <span class="to-my">TO MY</span>
+          <span class="planet">planet
+            <svg class="orbit" viewBox="0 0 68 44" fill="none">
+              <circle cx="34" cy="22" r="10" fill="#f6d8de" stroke="#57534e" stroke-width="2"/>
+              <ellipse cx="34" cy="22" rx="27" ry="9" stroke="#7d94b8" stroke-width="2" transform="rotate(-18 34 22)"/>
+              <circle cx="59" cy="11" r="2.4" fill="#f5e0a8"/>
+              <path d="M6 34l1.2 2.4 2.4 1.2-2.4 1.2L6 41.2l-1.2-2.4-2.4-1.2 2.4-1.2z" fill="#f5e0a8"/>
+            </svg>
+          </span>
+        </div>
+        <p class="tags">
+          <span>活动策划</span><span>市场营销</span><span>内容运营</span>
+        </p>
+        <p class="intro">
+          A master's student in Journalism &amp; Communication at Shanghai International Studies
+          University (Class of 2027), exploring brand marketing, campaign planning and content
+          operation. I believe good content carries warmth — and that data tells better stories.
+          This little site is my drawer of moments and work, feel free to look around ✿
+        </p>
+      </div>
+      <div class="hero-photos">
+        <figure class="polaroid" style="--tilt:-4deg; --w:235px">
+          <img src="images/photo-4cut.jpg" alt="四格照">
+          <span class="season">✿</span>
+          <figcaption class="caption">daily me</figcaption>
+        </figure>
+        <figure class="polaroid" style="--tilt:4deg; --w:212px; margin-top:30px">
+          <img src="images/cats.jpg" alt="并肩同行的两只小猫">
+          <span class="season">🐾</span>
+          <figcaption class="caption">little moments</figcaption>
+        </figure>
+      </div>
+    </div>
+  </header>
+
+  <section class="folder-scene" id="folder-nav">
+    <span class="deco" style="top:44px; left:15%"><svg width="20" height="18" viewBox="0 0 24 22"><path d="M12 20C6 15.5 2 12 2 8a5 5 0 0 1 10-1.5A5 5 0 0 1 22 8c0 4-4 7.5-10 12z" fill="#f4d7de"/></svg></span>
+    <span class="deco float" style="top:120px; right:11%"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="#bcd0ec"/></svg></span>
+    <div class="folder-stage" id="folderStage">
+      <button class="pop-icon p0" style="--i:0" data-target="#education" aria-label="教育经历">
+        <span class="pop-paper">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 12L58 23 32 34 6 23z" fill="#f6d8de"/>
+            <path d="M19 30v8c0 4.5 6 8 13 8s13-3.5 13-8v-8" fill="#fdf3f5"/>
+            <path d="M53 25.5v12.5"/>
+            <circle cx="53" cy="41" r="2.6" fill="#eeb7c1" stroke-width="1.6"/>
+            <path d="M13 10l1.4 2.8 2.8 1.4-2.8 1.4L13 18.4l-1.4-2.8L8.8 14.2l2.8-1.4z" fill="#f5e0a8" stroke="none"/>
+            <path d="M51 8l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="#f5e0a8" stroke="none"/>
+          </svg>
+        </span>
+        <span class="pop-label">Education</span>
+      </button>
+      <button class="pop-icon p1" style="--i:1" data-target="#exp" aria-label="实习经历">
+        <span class="pop-paper">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="22" width="46" height="30" rx="6" fill="#dbe6f4"/>
+            <path d="M24 22v-4c0-3 2.4-5 5-5h6c2.6 0 5 2 5 5v4"/>
+            <path d="M9 33h46"/>
+            <rect x="28" y="29.5" width="8" height="7" rx="1.6" fill="#fff"/>
+            <path d="M51 10l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="#f5e0a8" stroke="none"/>
+            <circle cx="12" cy="15" r="1.6" fill="#eeb7c1" stroke="none"/>
+          </svg>
+        </span>
+        <span class="pop-label">Experience</span>
+      </button>
+      <button class="pop-icon p2" style="--i:2" data-target="#portfolio" aria-label="作品集">
+        <span class="pop-paper">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="13" width="46" height="38" rx="5" fill="#fff"/>
+            <path d="M9 43l11-12 8 8 9-11 18 15v-22z" fill="#cfe3d4" stroke="none"/>
+            <path d="M9 43l11-12 8 8 9-11 18 15"/>
+            <circle cx="24" cy="23" r="3.6" fill="#f5d98f" stroke-width="1.8"/>
+            <path d="M51 7l1.2 2.4 2.4 1.2-2.4 1.2L51 14.2l-1.2-2.4-2.4-1.2 2.4-1.2z" fill="#f5e0a8" stroke="none"/>
+          </svg>
+        </span>
+        <span class="pop-label">Portfolio</span>
+      </button>
+      <button class="folder-btn" id="folderBtn" aria-label="打开资料夹">
+        <img src="images/folder-cutout.png" alt="我的资料夹">
+        <span class="folder-hint">✿ open my folder</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="about" class="page-view">
+    <button class="back-btn" data-back>← 回到资料夹</button>
+    <div class="sec-title"><span class="zh">关于我</span><span class="en">* about me</span></div>
+    <div class="about-cards">
+      <div class="chip"><b>🎯 我在找</b>2027 届校招进行中，方向：活动策划 / 市场营销 / 内容运营，欢迎来聊。</div>
+      <div class="chip"><b>✍️ 我在做什么</b>从内容策划到达人建联、从线下落地到投放复盘，完整跑通过品牌营销的全链路。</div>
+      <div class="chip"><b>✿ 性格切面</b>INFJ · 在意细节也在意别人的感受 · 点子多，喜欢边做边调整。</div>
+    </div>
+  </section>
+
+  <section id="education" class="page-view">
+    <button class="back-btn" data-back>← 回到资料夹</button>
+    <div class="sec-title"><span class="zh">教育经历</span><span class="en">* education</span></div>
+    <div class="exp">
+      <div class="exp-head">
+        <div><span class="role">新闻与传播硕士</span> <span class="co">· 上海外国语大学（211）</span></div>
+        <span class="time">2025.09 – 2027.06</span>
+      </div>
+    </div>
+    <div class="exp">
+      <div class="exp-head">
+        <div><span class="role">广播电视学学士</span> <span class="co">· 天津师范大学</span></div>
+        <span class="time">2021.09 – 2025.06</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="exp" class="page-view">
+    <button class="back-btn" data-back>← 回到资料夹</button>
+    <div class="sec-title"><span class="zh">实习经历</span><span class="en">* experience</span></div>
+
+    <div class="exp">
+      <div class="exp-head">
+        <div><span class="role">市场部实习生</span> <span class="co">· 哈啰普惠科技有限公司（上海）</span></div>
+        <span class="time">2026.06 – 2026.09</span>
+      </div>
+      <ul>
+        <li><b>商家 KOS 账号孵化：</b>从 0 到 1 撰写孵化 brief 并迭代激励机制，独立建联培训 10+ 商家，40+ 条短视频总播放 36.4w+，推动暑期 AIPS 人群总资产提升 7.35%、抖音搜索量较五一提升 24.1%。</li>
+        <li><b>UGC 运营：</b>策划「寻找 100 位租车验证官」线上活动，建联 35+ 真实用户产出体验内容并沉淀拉新 SOP，总播放 60w+。</li>
+        <li><b>节点营销落地：</b>参与品牌城市快闪「驶上最小车展」线下落地，现场触达 5.3w+ 人次、话题总曝光 7019w+；国庆节点输出传播创意 10+ 条，3 条被采纳执行。</li>
+        <li><b>数据复盘：</b>持续跟进商家与用户侧投流数据，按平台表现迭代投放策略。</li>
+      </ul>
+    </div>
+
+    <div class="exp">
+      <div class="exp-head">
+        <div><span class="role">市场部实习生</span> <span class="co">· 茉莉数科集团（上海）</span></div>
+        <span class="time">2026.01 – 2026.04</span>
+      </div>
+      <ul>
+        <li><b>KOL 种草：</b>负责爱他美白金德文版小红书种草项目，独立完成母婴达人筛选、建联、稿件审核与数据追踪全流程，筛达人 90+、推进合作 40+，站外月 GMV 达 50w。</li>
+        <li><b>投放跟进：</b>追踪信息流与搜索广告的活跃 UV、CPUV、回搜等指标，放大高潜内容，推动优质笔记转化贡献占比提升至 60%。</li>
+        <li><b>数据分析：</b>通过蒲公英报告追踪达人 7/15/30 天数据，输出优化建议 30+ 条；基于全年数据识别高效投放切角，为次年策略与预算分配提供参考。</li>
+      </ul>
+    </div>
+
+    <div class="exp">
+      <div class="exp-head">
+        <div><span class="role">内容运营实习生</span> <span class="co">· 天津集创造物文化科技有限公司</span></div>
+        <span class="time">2025.04 – 2025.07</span>
+      </div>
+      <ul>
+        <li><b>内容生产：</b>负责文具品牌 Mark's 小红书账号图文策划与撰写，累计产出 40+ 篇，月度浏览量 5w+，涨粉 1500+。</li>
+        <li><b>复盘迭代：</b>追踪曝光、点击率、互动率与粉丝增长，输出 4 份月报，持续迭代选题方向。</li>
+      </ul>
+    </div>
+
+    <div class="exp">
+      <div class="exp-head">
+        <div><span class="role">内容运营实习生</span> <span class="co">· 北京中青在线网络有限公司（中国青年报）</span></div>
+        <span class="time">2022.10 – 2023.08</span>
+      </div>
+      <ul>
+        <li><b>视觉与版式：</b>负责「中青校媒（天津）」公众号推文设计与排版，独立排版原创内容 15+ 篇，获中国青年报官号转载，累计阅读 2w+、点赞 1000+。</li>
+        <li><b>活动策划：</b>围绕春节、毕业季等节点策划线上互动活动，联动校园组织内容共创，推动账号涨粉 500+。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills" class="page-view">
+    <button class="back-btn" data-back>← 回到资料夹</button>
+    <div class="sec-title"><span class="zh">技能与证书</span><span class="en">* skills</span></div>
+    <div class="skills">
+      <span class="tag">Excel / PPT</span>
+      <span class="tag">剪映 / Premiere</span>
+      <span class="tag">Photoshop</span>
+      <span class="tag">秀米 / Canva</span>
+      <span class="tag alt">SQL</span>
+      <span class="tag alt">Python 数据分析</span>
+      <span class="tag alt">AI 工具：ChatGPT / Codex</span>
+    </div>
+    <p class="cert">CET-6（英语可作为工作语言）· 大学法语公共四级 · 全国计算机二级</p>
+  </section>
+
+  <section id="portfolio" class="page-view">
+    <button class="back-btn" data-back>← 回到资料夹</button>
+    <div class="sec-title"><span class="zh">作品集</span><span class="en">* portfolio</span></div>
+    <div class="portfolio-soon">
+      <span class="hand2">✿ 整理中，敬请期待</span>
+      <span>这里之后会放上我的策划案例与内容作品</span>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <span class="deco" style="top:30px; left:16%"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="#f2c7cf"/></svg></span>
+    <span class="deco float2" style="bottom:56px; right:19%"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z" fill="#bcd0ec"/></svg></span>
+    <p class="hand">Thanks for stopping by ✿</p>
+    <p class="reach">Feel free to reach out: <a href="mailto:3508967524@qq.com">3508967524@qq.com</a></p>
+    <p class="note">* Portfolio & more available on request</p>
+  </section>
+
+  <footer>© 2026 Jenny · made with ♡</footer>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+  const stage = document.getElementById('folderStage');
+  const folderBtn = document.getElementById('folderBtn');
+  const toast = document.getElementById('toast');
+  let toastTimer;
+
+  folderBtn.addEventListener('click', () => stage.classList.toggle('open'));
+
+  function openView(id) {
+    document.querySelectorAll('.page-view').forEach(s => s.classList.remove('active'));
+    document.body.classList.add('viewing');
+    const sec = document.getElementById(id);
+    sec.classList.add('active');
+    requestAnimationFrame(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    if (id === 'portfolio') showToast('作品集整理中，敬请期待 ✿');
+  }
+
+  function backToFolder() {
+    document.querySelectorAll('.page-view').forEach(s => s.classList.remove('active'));
+    document.body.classList.remove('viewing');
+    stage.classList.remove('open');
+    document.getElementById('folder-nav').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  document.querySelectorAll('.pop-icon').forEach(btn => {
+    btn.addEventListener('click', () => openView(btn.dataset.target.slice(1)));
+  });
+
+  document.querySelectorAll('[data-back]').forEach(btn => {
+    btn.addEventListener('click', backToFolder);
+  });
+
+  document.querySelectorAll('.nav a[data-view]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      openView(a.dataset.view);
+    });
+  });
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+  }
+</script>
+</body>
+</html>

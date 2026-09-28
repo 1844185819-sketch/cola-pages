@@ -397,6 +397,70 @@
     #music-btn { top: 12px; right: 12px; width: 38px; height: 38px; }
   }
 
+  /* —— 开场：信纸封皮，弹跳落下 → 撕开 → 摇晃退场 —— */
+  #intro {
+    position: fixed; inset: 0; z-index: 200; display: flex;
+    animation: coverIn .9s cubic-bezier(.34,1.4,.64,1) both;
+    cursor: pointer;
+  }
+  @keyframes coverIn {
+    0% { opacity: 0; transform: translateY(-55vh) scale(.62); }
+    60% { opacity: 1; transform: translateY(0) scale(1.03); }
+    78% { transform: translateY(-7px) scale(.99); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  #intro .half {
+    position: relative; width: 50.2%; height: 100%;
+    background-color: #f6efe1;
+    background-image:
+      radial-gradient(rgba(232,169,181,.35) 1.6px, transparent 1.7px),
+      radial-gradient(rgba(125,148,184,.30) 1.6px, transparent 1.7px);
+    background-size: 46px 46px, 46px 46px;
+    background-position: 0 0, 23px 23px;
+    box-shadow: inset 0 0 80px rgba(120,100,80,.10);
+    overflow: hidden;
+  }
+  #intro .half.left { transform-origin: left center; }
+  #intro .half.right { transform-origin: right center; margin-left: -.4%; }
+  #intro .intro-letter {
+    position: absolute; top: 50%;
+    font-family: 'Playfair Display', Didot, serif; font-style: italic; font-weight: 700;
+    font-size: clamp(130px, 30vw, 300px); line-height: 1;
+    color: #e8a9b5; text-shadow: 6px 6px 0 rgba(125,148,184,.35);
+    user-select: none;
+  }
+  #intro .left .intro-letter { left: 100%; transform: translate(-50%, -50%); }
+  #intro .right .intro-letter { left: 0; transform: translate(-50%, -50%); }
+  #intro.tear .half.left {
+    clip-path: polygon(0 0, 100% 0, 86% 5%, 95% 12%, 85% 20%, 94% 28%, 84% 37%, 95% 45%, 86% 54%, 94% 62%, 84% 71%, 95% 79%, 86% 88%, 93% 95%, 88% 100%, 0 100%);
+    animation: tearLeft 1s ease-in forwards;
+  }
+  #intro.tear .half.right {
+    clip-path: polygon(100% 0, 100% 100%, 0 100%, 12% 95%, 5% 88%, 14% 79%, 4% 71%, 15% 62%, 6% 54%, 16% 45%, 5% 37%, 15% 28%, 4% 20%, 13% 12%, 5% 5%, 14% 0);
+    animation: tearRight .92s ease-in forwards;
+  }
+  @keyframes tearLeft {
+    0% { transform: rotate(0deg) translateX(0); opacity: 1; }
+    18% { transform: rotate(-5deg) translateX(0); }
+    38% { transform: rotate(3deg) translateX(-7%); }
+    58% { transform: rotate(-9deg) translateX(-18%); opacity: .9; }
+    78% { transform: rotate(4deg) translateX(-32%); opacity: .5; }
+    100% { transform: rotate(-14deg) translateX(-52%); opacity: 0; }
+  }
+  @keyframes tearRight {
+    0% { transform: rotate(0deg) translateX(0); opacity: 1; }
+    18% { transform: rotate(5deg) translateX(0); }
+    38% { transform: rotate(-3deg) translateX(7%); }
+    58% { transform: rotate(9deg) translateX(18%); opacity: .9; }
+    78% { transform: rotate(-4deg) translateX(32%); opacity: .5; }
+    100% { transform: rotate(14deg) translateX(52%); opacity: 0; }
+  }
+  /* 开场结束前，首页的所有出场动画先冻结 */
+  body:not(.ready) .intro,
+  body:not(.ready) .tags,
+  body:not(.ready) .hero-photos .polaroid,
+  body:not(.ready) .folder-btn { animation-play-state: paused !important; }
+
   @media (max-width: 640px) {
     header { padding-top: 60px; }
     .hero { gap: 30px; justify-content: center; text-align: center; }
@@ -415,6 +479,11 @@
 </style>
 </head>
 <body>
+
+<div id="intro">
+  <div class="half left"><span class="intro-letter">J</span></div>
+  <div class="half right"><span class="intro-letter">J</span></div>
+</div>
 
 <div class="wrap">
 
@@ -718,7 +787,9 @@
     }
   }
 
+  var typeRan = false;
   async function runTypewriter() {
+    if (typeRan) return; typeRan = true;
     const els = [document.querySelector('.script-top'), document.querySelector('.to-my'),
                  document.querySelector('.planet-text')];
     if (els.some(e => !e)) return;
@@ -733,7 +804,32 @@
     setTimeout(() => typeCursor.remove(), 1800);
   }
 
-  window.addEventListener('load', runTypewriter);
+  // 打字机由开场封皮结束后统一触发；若页面没有开场封皮则直接打
+  window.addEventListener('load', function () {
+    if (!document.getElementById('intro')) runTypewriter();
+  });
+
+  // —— 开场封皮：弹跳落下 → 停顿 → 撕开摇晃退场；点击可跳过 ——
+  (function () {
+    var intro = document.getElementById('intro');
+    var done = false;
+    function finish() {
+      if (done || !intro.parentNode) return;
+      done = true;
+      intro.remove();
+      document.body.classList.add('ready');
+      runTypewriter();
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { finish(); return; }
+    intro.addEventListener('pointerdown', finish);
+    intro.addEventListener('animationend', function (e) {
+      if (e.animationName === 'coverIn') {
+        setTimeout(function () { intro.classList.add('tear'); }, 700);
+      }
+      if (e.animationName === 'tearLeft') { setTimeout(finish, 80); }
+    });
+    setTimeout(finish, 8000); // 保险丝：无论如何都会收场
+  })();
 </script>
 
 <script>

@@ -116,7 +116,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .intro, .tags, .hero-photos .polaroid { animation: none; }
+    .intro, .tags, .hero-photos .polaroid, .folder-btn { animation: none; }
   }
 
   /* 首页右侧照片 */
@@ -246,6 +246,13 @@
     position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
     background: none; border: none; cursor: pointer;
     display: flex; flex-direction: column; align-items: center; gap: 6px;
+    animation: dropIn .75s cubic-bezier(.3,1.25,.6,1) 2.4s both;
+  }
+  @keyframes dropIn {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-80px); }
+    55% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+    75% { transform: translateX(-50%) translateY(-4px); }
+    100% { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
   .folder-btn img {
     width: 140px; height: auto; display: block;

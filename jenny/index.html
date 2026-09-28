@@ -270,9 +270,9 @@
     z-index: 2;
   }
   .folder-stage.open .pop-icon { opacity: 1; pointer-events: auto; }
-  .folder-stage.open .pop-icon.p0 { transform: translateX(calc(-50% - 165px)) translateY(-6px) scale(1.12) rotate(-7deg); }
-  .folder-stage.open .pop-icon.p1 { transform: translateX(-50%) translateY(-34px) scale(1.12) rotate(1deg); }
-  .folder-stage.open .pop-icon.p2 { transform: translateX(calc(-50% + 165px)) translateY(-6px) scale(1.12) rotate(7deg); }
+  .folder-stage.open .pop-icon.p0 { transform: translateX(calc(-50% - 165px)) translateY(-6px) scale(1.12); }
+  .folder-stage.open .pop-icon.p1 { transform: translateX(-50%) translateY(-34px) scale(1.12); }
+  .folder-stage.open .pop-icon.p2 { transform: translateX(calc(-50% + 165px)) translateY(-6px) scale(1.12); }
   .pop-paper {
     display: flex; align-items: center; justify-content: center;
     width: 100px; height: 100px;
@@ -281,7 +281,7 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.09);
     transition: transform .25s ease;
   }
-  .pop-icon:hover .pop-paper { transform: translateY(-5px) rotate(-3deg); }
+  .pop-icon:hover .pop-paper { transform: translateY(-5px); }
   .pop-paper svg { width: 54px; height: 54px; }
   .pop-label {
     display: block; margin-top: 9px;
@@ -362,9 +362,9 @@
     .hero-photos .polaroid { --w: calc(50% - 8px); }
     .hero-photos .polaroid + .polaroid { margin-top: 18px; }
     .big-title .planet .orbit { width: 48px; top: -20px; right: -6px; }
-    .folder-stage.open .pop-icon.p0 { transform: translateX(calc(-50% - 104px)) translateY(0) scale(0.82) rotate(-7deg); }
-    .folder-stage.open .pop-icon.p1 { transform: translateX(-50%) translateY(-22px) scale(0.82) rotate(1deg); }
-    .folder-stage.open .pop-icon.p2 { transform: translateX(calc(-50% + 104px)) translateY(0) scale(0.82) rotate(7deg); }
+    .folder-stage.open .pop-icon.p0 { transform: translateX(calc(-50% - 104px)) translateY(0) scale(0.82); }
+    .folder-stage.open .pop-icon.p1 { transform: translateX(-50%) translateY(-22px) scale(0.82); }
+    .folder-stage.open .pop-icon.p2 { transform: translateX(calc(-50% + 104px)) translateY(0) scale(0.82); }
     .pop-paper { width: 74px; height: 74px; }
     .pop-paper svg { width: 44px; height: 44px; }
   }

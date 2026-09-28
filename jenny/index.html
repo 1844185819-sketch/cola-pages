@@ -370,6 +370,32 @@
   .back-btn:hover { color: var(--ink); }
 
   footer { text-align: center; padding: 30px 0; font-size: 12.5px; color: #c0c0c0; }
+  .credit { font-size: 10.5px; color: #d8d8d8; margin-top: 6px; }
+  .credit a { color: #d8d8d8; text-decoration: none; border-bottom: 1px dotted #ddd; }
+
+  /* —— 背景音乐 —— */
+  #music-btn {
+    position: fixed; top: 18px; right: 18px; width: 42px; height: 42px;
+    border-radius: 50%; border: none; cursor: pointer; z-index: 90;
+    box-shadow: 0 3px 10px rgba(60, 50, 40, .22);
+    display: flex; align-items: center; justify-content: center;
+    background: #efe9db; transition: transform .25s ease;
+  }
+  #music-btn:hover { transform: scale(1.08); }
+  #music-btn .vinyl {
+    position: absolute; inset: 3px; border-radius: 50%;
+    background: repeating-radial-gradient(circle at 50% 50%, #38332b 0 1.5px, #474135 1.5px 3px);
+  }
+  #music-btn.playing .vinyl { animation: vinylSpin 3.2s linear infinite; }
+  @keyframes vinylSpin { to { transform: rotate(360deg); } }
+  #music-btn .note {
+    position: relative; z-index: 1; width: 19px; height: 19px; border-radius: 50%;
+    background: #e8a9b5; color: #fff; font-size: 11px; line-height: 19px;
+    text-align: center; font-family: Georgia, serif; padding-left: 1px;
+  }
+  @media (max-width: 640px) {
+    #music-btn { top: 12px; right: 12px; width: 38px; height: 38px; }
+  }
 
   @media (max-width: 640px) {
     header { padding-top: 60px; }
@@ -607,9 +633,15 @@
     <p class="note">* Portfolio & more available on request</p>
   </section>
 
-  <footer>© 2026 Jenny · made with ♡</footer>
+  <footer>
+    © 2026 Jenny · made with ♡
+    <div class="credit">♪ Gymnopédie No.1 (E. Satie) · perf. Kevin MacLeod · <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a></div>
+  </footer>
 
 </div>
+
+<button id="music-btn" aria-label="toggle music" title="music on / off"><span class="vinyl"></span><span class="note">♪</span></button>
+<audio id="bgm" src="audio/gymnopedie.m4a" loop preload="auto"></audio>
 
 <div class="toast" id="toast"></div>
 <script>
@@ -702,6 +734,27 @@
   }
 
   window.addEventListener('load', runTypewriter);
+</script>
+
+<script>
+  // —— 背景音乐：首次点击任意处轻声响起，右上角唱片可随时开关 ——
+  (function () {
+    var bgm = document.getElementById('bgm');
+    var btn = document.getElementById('music-btn');
+    var wantsMusic = false;
+    bgm.volume = 0.32;
+    function tryPlay() { if (wantsMusic && bgm.paused) bgm.play().catch(function(){}); }
+    bgm.addEventListener('play',  function(){ btn.classList.add('playing'); });
+    bgm.addEventListener('pause', function(){ btn.classList.remove('playing'); });
+    document.addEventListener('pointerdown', function (e) {
+      if (btn.contains(e.target)) return;   // 点唱片按钮走它自己的逻辑
+      if (!wantsMusic) { wantsMusic = true; tryPlay(); }
+    });
+    btn.addEventListener('click', function () {
+      if (bgm.paused) { wantsMusic = true; tryPlay(); }
+      else { wantsMusic = false; bgm.pause(); }
+    });
+  })();
 </script>
 </body>
 </html>

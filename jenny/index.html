@@ -658,6 +658,7 @@
 
   async function typeInto(el, speed) {
     el.after(typeCursor);
+    typeCursor.style.fontSize = getComputedStyle(el).fontSize;
     const chars = el.querySelectorAll('.tchar');
     for (const s of chars) {
       s.classList.add('on');

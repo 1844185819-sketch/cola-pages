@@ -252,9 +252,9 @@
     background: #4a4438;
     margin-left: 3px;
     vertical-align: -0.08em;
-    animation: blink 0.8s steps(1) infinite;
+    animation: blink 1.15s ease-in-out infinite;
   }
-  @keyframes blink { 50% { opacity: 0; } }
+  @keyframes blink { 0%, 100% { opacity: 1; } 55% { opacity: 0.15; } }
   .tchar { visibility: hidden; }
   .tchar.on { visibility: visible; }
   @media (prefers-reduced-motion: reduce) {
@@ -473,7 +473,7 @@
       </button>
       <button class="folder-btn" id="folderBtn" aria-label="打开资料夹">
         <img src="images/folder-cutout.png" alt="我的资料夹">
-        <span class="folder-hint" data-text="✿ open my folder"></span>
+        <span class="folder-hint">✿ open my folder</span>
       </button>
     </div>
   </section>
@@ -668,18 +668,17 @@
 
   async function runTypewriter() {
     const els = [document.querySelector('.script-top'), document.querySelector('.to-my'),
-                 document.querySelector('.planet-text'), document.querySelector('.folder-hint')];
+                 document.querySelector('.planet-text')];
     if (els.some(e => !e)) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       els.forEach(el => el.querySelectorAll('.tchar').forEach(s => s.classList.add('on')));
       return;
     }
     els.forEach(prepChars);
-    await typeInto(els[0], 70);
-    await typeInto(els[1], 55);
-    await typeInto(els[2], 130);
-    await typeInto(els[3], 40);
-    setTimeout(() => typeCursor.remove(), 2400);
+    await typeInto(els[0], 88);
+    await typeInto(els[1], 70);
+    await typeInto(els[2], 155);
+    setTimeout(() => typeCursor.remove(), 1800);
   }
 
   window.addEventListener('load', runTypewriter);

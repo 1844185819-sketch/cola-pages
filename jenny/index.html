@@ -246,6 +246,20 @@
     font-family: "Special Elite", "Courier New", monospace;
     font-size: 17px; letter-spacing: 0.05em; color: var(--soft);
   }
+  .type-cursor {
+    display: inline-block;
+    width: 3px; height: 0.85em;
+    background: #4a4438;
+    margin-left: 3px;
+    vertical-align: -0.08em;
+    animation: blink 0.8s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .tchar { visibility: hidden; }
+  .tchar.on { visibility: visible; }
+  @media (prefers-reduced-motion: reduce) {
+    .type-cursor { animation: none; }
+  }
   .pop-icon {
     position: absolute; left: 50%; bottom: 150px;
     background: none; border: none; cursor: pointer;
@@ -379,9 +393,9 @@
       <div class="hero-text">
         <p class="hello">Hi, I'm Jenny 👋</p>
         <div class="big-title">
-          <span class="script-top">WELCOME</span>
-          <span class="to-my">TO MY</span>
-          <span class="planet">planet
+          <span class="script-top" data-text="WELCOME"></span>
+          <span class="to-my" data-text="TO MY"></span>
+          <span class="planet"><span class="planet-text" data-text="PLANET"></span>
             <svg class="orbit" viewBox="0 0 68 44" fill="none">
               <circle cx="34" cy="22" r="10" fill="#f6d8de" stroke="#57534e" stroke-width="2"/>
               <ellipse cx="34" cy="22" rx="27" ry="9" stroke="#7d94b8" stroke-width="2" transform="rotate(-18 34 22)"/>
@@ -459,7 +473,7 @@
       </button>
       <button class="folder-btn" id="folderBtn" aria-label="打开资料夹">
         <img src="images/folder-cutout.png" alt="我的资料夹">
-        <span class="folder-hint">✿ open my folder</span>
+        <span class="folder-hint" data-text="✿ open my folder"></span>
       </button>
     </div>
   </section>
@@ -625,6 +639,49 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
   }
+
+  /* 打字机动效 */
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const typeCursor = document.createElement('span');
+  typeCursor.className = 'type-cursor';
+
+  function prepChars(el) {
+    const text = el.dataset.text || '';
+    el.textContent = '';
+    for (const ch of text) {
+      const s = document.createElement('span');
+      s.className = 'tchar';
+      s.textContent = ch;
+      el.appendChild(s);
+    }
+  }
+
+  async function typeInto(el, speed) {
+    el.after(typeCursor);
+    const chars = el.querySelectorAll('.tchar');
+    for (const s of chars) {
+      s.classList.add('on');
+      await sleep(speed + Math.random() * speed * 0.9);
+    }
+  }
+
+  async function runTypewriter() {
+    const els = [document.querySelector('.script-top'), document.querySelector('.to-my'),
+                 document.querySelector('.planet-text'), document.querySelector('.folder-hint')];
+    if (els.some(e => !e)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(el => el.querySelectorAll('.tchar').forEach(s => s.classList.add('on')));
+      return;
+    }
+    els.forEach(prepChars);
+    await typeInto(els[0], 70);
+    await typeInto(els[1], 55);
+    await typeInto(els[2], 130);
+    await typeInto(els[3], 40);
+    setTimeout(() => typeCursor.remove(), 2400);
+  }
+
+  window.addEventListener('load', runTypewriter);
 </script>
 </body>
 </html>

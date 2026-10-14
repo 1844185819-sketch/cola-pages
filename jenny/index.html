@@ -554,6 +554,7 @@
   .pf-fig figcaption { margin-top: 10px; font-size: 13.5px; color: var(--soft); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
   .pf-fig figcaption b { font-family: "Kaiti SC", "STKaiti", cursive; font-weight: 400; font-size: 16px; color: var(--ink); }
   .pf-fig figcaption a { color: #b9808c; text-decoration: none; border-bottom: 1px dotted #d9b5bc; font-size: 12.5px; }
+  .pf-empty { font-family: "Kaiti SC", "STKaiti", cursive; color: var(--soft); background: #fffaf0; border: 1.4px dashed #e3cdd2; border-radius: 14px; text-align: center; padding: 34px 16px; }
   .pf-more { margin-top: 44px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; color: var(--soft); font-family: "Kaiti SC", "STKaiti", cursive; font-size: 15px; }
   #pfMore { display: flex; gap: 10px; flex-wrap: wrap; }
   #pfMore button { width: 52px; height: 52px; border-radius: 16px; border: 1px solid #ece2e4; background: rgba(255,255,255,.92); cursor: pointer; padding: 8px; transition: transform .25s ease; }
@@ -873,7 +874,7 @@
       </svg>
 
       <!-- 1 文案写作 · 钢笔 -->
-      <button class="pf-item" data-pf="writing" aria-label="文案写作" style="--x:20%;--y:33%;--w:17%;--r:-8deg;--mx:27%;--my:20%;--mw:30%;--k:0">
+      <button class="pf-item" data-pf="brief" aria-label="brief 写作" style="--x:20%;--y:33%;--w:17%;--r:-8deg;--mx:27%;--my:20%;--mw:30%;--k:0">
         <svg class="obj" viewBox="0 0 100 100" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <g transform="rotate(38 50 50)">
             <rect x="39" y="5" width="22" height="58" rx="8" fill="#a9bedb"/>
@@ -886,7 +887,7 @@
           <path d="M16 84c5-4 8 3 13-1s6-5 10-3" stroke="#e8b4bd" stroke-width="2"/>
           <path d="M82 12l1.3 2.7 2.7 1.3-2.7 1.3L82 20l-1.3-2.7-2.7-1.3 2.7-1.3z" fill="#f5e0a8" stroke="none"/>
         </svg>
-        <span class="pf-tag"><b>Writing</b>文案写作</span>
+        <span class="pf-tag"><b>Brief</b>brief 写作</span>
       </button>
 
       <!-- 2 活动策划&公关 · 入场券 -->
@@ -936,20 +937,6 @@
         <span class="pf-tag"><b>Accounts</b>账号运营</span>
       </button>
 
-      <!-- 5 平面设计 · 调色盘 -->
-      <button class="pf-item" data-pf="design" aria-label="平面设计" style="--x:50%;--y:71%;--w:20%;--r:-8deg;--mx:27%;--my:75%;--mw:33%;--k:4">
-        <svg class="obj" viewBox="0 0 100 100" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 54C9 30 34 14 60 16c24 2 32 24 18 36-8 7-17 1-23 9-6 9 4 22-13 24C28 87 14 74 12 54z" fill="#f6e9cf"/>
-          <ellipse cx="34" cy="62" rx="6" ry="5" fill="#fff"/>
-          <circle cx="27" cy="40" r="6" fill="#eeb7c1"/>
-          <circle cx="43" cy="30" r="6" fill="#f5d98f"/>
-          <circle cx="61" cy="30" r="6" fill="#a9bedb"/>
-          <circle cx="74" cy="42" r="6" fill="#cfe0d1"/>
-          <path d="M60 80L90 40" stroke-width="3.2"/>
-          <path d="M90 40l4-6" stroke="#e8a5b2" stroke-width="5"/>
-        </svg>
-        <span class="pf-tag"><b>Design</b>平面设计</span>
-      </button>
 
       <!-- 6 数据分析 · 放大镜 + 报表 -->
       <button class="pf-item" data-pf="data" aria-label="数据分析" style="--x:79%;--y:70%;--w:19%;--r:10deg;--mx:73%;--my:76%;--mw:31%;--k:5">
@@ -1133,14 +1120,21 @@
   (function () {
     var IMG = 'images/pf/';
     var PF = {
-      writing: { zh: '文案写作', en: '* writing',
-        blurb: '公众号推文、SVG 互动稿，也为市红十字会、研究生院等官方账号供稿、供图。',
-        tools: ['公众号推文', 'SVG 互动', '新闻稿件'],
+      brief: { zh: 'Brief 写作', en: '* brief writing',
+        blurb: '面向商家与达人的 brief 撰写：把品牌诉求拆解成清晰的内容方向、要点与验收标准，让内容产出有的放矢。',
+        tools: ['商家 KOS 孵化 brief', '达人合作 brief', '内容方向拆解'],
+        items: [] },
+      copy: { zh: '文案 · 设计', en: '* copy & design',
+        blurb: '公众号推文、SVG 互动稿、官方账号供稿，加上海报与图文排版等平面设计作品。',
+        tools: ['公众号推文', 'SVG 互动', '新闻稿件', 'Canva', 'Photoshop'],
         items: [
           { img: 'writing-1.jpg', cap: '公众号作品', sub: '01 · 02', link: 'https://mp.weixin.qq.com/s/VEQ010b6o499NpPgX87dJg' },
           { img: 'writing-2.jpg', cap: 'SVG 互动作品', sub: '03 · 04', link: 'https://mp.weixin.qq.com/s/v3u7sl_4NMJxI8LFjEgmEw' },
           { img: 'writing-3.jpg', cap: '公众号专题', sub: '05 · 06 · 07' },
-          { img: 'writing-4.jpg', cap: '官方账号供稿', sub: '为市红十字会、研究生院供稿、供图，并发布在官方账号上' }
+          { img: 'writing-4.jpg', cap: '官方账号供稿', sub: '为市红十字会、研究生院供稿、供图，并发布在官方账号上' },
+          { img: 'design-1.jpg', cap: 'Design work', sub: '平面设计总览' },
+          { img: 'design-2.jpg', cap: '设计作品', sub: '01 · 02 · 03' },
+          { img: 'design-3.jpg', cap: '设计作品', sub: '04' }
         ] },
       events: { zh: '活动策划 · 公关', en: '* events & pr',
         blurb: '品牌公关策划案，以及哈啰实习期间策划的商家抖音孵化计划——从调研分析、主题机制，到执行落地。',
@@ -1175,14 +1169,6 @@
           { img: 'account-2.jpg', cap: '商家 KOS 账号孵化', sub: '哈啰租车 · 呼和浩特站店主页', cls: 'phone' },
           { img: 'account-3.jpg', cap: '商家 KOS 账号孵化', sub: '哈啰租车 · 安庆站店「小刘日记」工作日常向', cls: 'phone' }
         ] },
-      design: { zh: '平面设计', en: '* design',
-        blurb: '海报、排版与活动单页等平面设计作品。',
-        tools: ['Canva', 'Photoshop'],
-        items: [
-          { img: 'design-1.jpg', cap: 'Design work', sub: '总览' },
-          { img: 'design-2.jpg', cap: '设计作品', sub: '01 · 02 · 03' },
-          { img: 'design-3.jpg', cap: '设计作品', sub: '04' }
-        ] },
       data: { zh: '数据分析', en: '* data',
         blurb: '会用 Python、SQL 做数据抓取、清洗与查询，并借助 AI 工具把代码跑通。',
         tools: ['Python', 'SQL', '八爪鱼', 'VLOOKUP'],
@@ -1192,7 +1178,7 @@
           { img: 'data-3.jpg', cap: '技能与方法', sub: '抓取 · 清洗 · 查询' }
         ] }
     };
-    var ORDER = ['writing', 'events', 'film', 'account', 'design', 'data'];
+    var ORDER = ['brief', 'events', 'film', 'account', 'copy', 'data'];
 
     function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
@@ -1201,11 +1187,11 @@
       document.getElementById('pfTitle').innerHTML = '<span class="zh">' + esc(d.zh) + '</span><span class="en">' + esc(d.en) + '</span>';
       document.getElementById('pfBlurb').textContent = d.blurb;
       document.getElementById('pfTools').innerHTML = d.tools.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
-      document.getElementById('pfGallery').innerHTML = d.items.map(function (it) {
+      document.getElementById('pfGallery').innerHTML = d.items.length ? d.items.map(function (it) {
         return '<figure class="pf-fig ' + (it.cls || '') + '"><img src="' + IMG + it.img + '" alt="' + esc(it.cap) + '" loading="lazy">' +
           '<figcaption><b>' + esc(it.cap) + '</b>' + (it.sub ? '<span>' + esc(it.sub) + '</span>' : '') +
           (it.link ? '<a href="' + it.link + '" target="_blank" rel="noopener">原文链接 ↗</a>' : '') + '</figcaption></figure>';
-      }).join('');
+      }).join('') : '<p class="pf-empty">✿ brief 原文整理中，可以先看看盒子里别的小物件</p>';
       var more = document.getElementById('pfMore'); more.innerHTML = '';
       ORDER.filter(function (k) { return k !== key; }).forEach(function (k) {
         var b = document.createElement('button');

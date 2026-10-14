@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jenny · Welcome To My Planet</title>
+<script>
+  /* 资料夹掉落动画每个浏览器只播一次 */
+  try { if (localStorage.getItem('folderDropped')) document.documentElement.classList.add('no-drop'); } catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
@@ -254,6 +258,7 @@
     75% { transform: translateX(-50%) translateY(-4px); }
     100% { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
+  html.no-drop .folder-btn { animation: none; }
   .folder-btn img {
     width: 140px; height: auto; display: block;
     filter: drop-shadow(0 6px 12px rgba(0,0,0,0.08));
@@ -843,6 +848,12 @@
   // 打字机由开场封皮结束后统一触发；若页面没有开场封皮则直接打
   window.addEventListener('load', function () {
     if (!document.getElementById('intro')) runTypewriter();
+    /* 本次掉落播完后记下，之后回首页不再掉落 */
+    try {
+      if (!localStorage.getItem('folderDropped')) {
+        setTimeout(function () { localStorage.setItem('folderDropped', '1'); }, 3400);
+      }
+    } catch (e) {}
   });
 
   // —— 开场封皮：弹跳落下 → 停顿 → 撕开摇晃退场；点击可跳过 ——

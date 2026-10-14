@@ -559,9 +559,15 @@
   #pfMore button { width: 52px; height: 52px; border-radius: 16px; border: 1px solid #ece2e4; background: rgba(255,255,255,.92); cursor: pointer; padding: 8px; transition: transform .25s ease; }
   #pfMore button:hover { transform: translateY(-4px); }
   #pfMore svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .pf-fig.tall { max-width: 560px; margin: 0 auto; width: 100%; }
+  .pf-fig.tall img { max-height: 640px; width: 100%; object-fit: cover; object-position: top;
+    -webkit-mask-image: linear-gradient(#000 82%, transparent); mask-image: linear-gradient(#000 82%, transparent); }
+  .pf-fig.phone { max-width: 340px; margin: 0 auto; width: 100%; }
+  #lightbox { overflow: auto; align-items: flex-start !important; }
+  #lightbox img { margin: auto; }
   #lightbox { position: fixed; inset: 0; background: rgba(40,32,36,.78); display: none; align-items: center; justify-content: center; z-index: 150; padding: 20px; cursor: zoom-out; }
   #lightbox.show { display: flex; }
-  #lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+  #lightbox img { max-width: min(100%, 1100px); height: auto; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
 
   @media (max-width: 640px) {
     .pf-br { display: inline; }
@@ -1136,11 +1142,12 @@
           { img: 'writing-4.jpg', cap: '官方账号供稿', sub: '为市红十字会、研究生院供稿、供图，并发布在官方账号上' }
         ] },
       events: { zh: '活动策划 · 公关', en: '* events & pr',
-        blurb: '一份完整的品牌公关策划案：从调研分析、公关主题，到活动分期与执行落地。',
-        tools: ['PPT 策划案', 'PEST / SWOT', '活动执行'],
+        blurb: '品牌公关策划案，以及哈啰实习期间策划的商家抖音孵化计划——从调研分析、主题机制，到执行落地。',
+        tools: ['PPT 策划案', 'PEST / SWOT', '活动执行', '抖音'],
         items: [
           { img: 'events-1.jpg', cap: '品牌公关策划案', sub: '调研分析 · 公关策略 · 主题活动' },
-          { img: 'events-2.jpg', cap: '项目执行', sub: '日程 · 预算 · 风险管理' }
+          { img: 'events-2.jpg', cap: '项目执行', sub: '日程 · 预算 · 风险管理' },
+          { img: 'events-3.jpg', cap: '哈啰租车 · 商家抖音孵化计划', sub: '招募长图 · 项目背景 · 内容要求 · 奖励机制 · 真实案例（点击图片查看完整长图）', cls: 'tall' }
         ] },
       film: { zh: '拍摄 · 剪辑', en: '* film & photo',
         blurb: '用镜头记录人——纪录片、短视频，以及风光、人像、静物摄影。',
@@ -1156,9 +1163,12 @@
           { img: 'photo-3.jpg', cap: '摄影 · 静物' }
         ] },
       account: { zh: '账号运营', en: '* accounts',
-        blurb: '小红书账号 marks 的运营：从选题、文案到图文排版的整套内容。',
-        tools: ['小红书', '图文排版', '选题策划'],
-        items: [ { img: 'account-1.jpg', cap: '运营 marks 小红书账号' } ] },
+        blurb: '小红书账号 marks 的运营，以及哈啰租车商家 KOS 账号的孵化。',
+        tools: ['小红书', '抖音', '图文排版', '选题策划'],
+        items: [
+          { img: 'account-1.jpg', cap: '运营 marks 小红书账号' },
+          { img: 'account-2.jpg', cap: '商家 KOS 账号孵化', sub: '哈啰租车商家抖音账号主页示例', cls: 'phone' }
+        ] },
       design: { zh: '平面设计', en: '* design',
         blurb: '海报、排版与活动单页等平面设计作品。',
         tools: ['Canva', 'Photoshop'],
@@ -1186,7 +1196,7 @@
       document.getElementById('pfBlurb').textContent = d.blurb;
       document.getElementById('pfTools').innerHTML = d.tools.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
       document.getElementById('pfGallery').innerHTML = d.items.map(function (it) {
-        return '<figure class="pf-fig"><img src="' + IMG + it.img + '" alt="' + esc(it.cap) + '" loading="lazy">' +
+        return '<figure class="pf-fig ' + (it.cls || '') + '"><img src="' + IMG + it.img + '" alt="' + esc(it.cap) + '" loading="lazy">' +
           '<figcaption><b>' + esc(it.cap) + '</b>' + (it.sub ? '<span>' + esc(it.sub) + '</span>' : '') +
           (it.link ? '<a href="' + it.link + '" target="_blank" rel="noopener">原文链接 ↗</a>' : '') + '</figcaption></figure>';
       }).join('');

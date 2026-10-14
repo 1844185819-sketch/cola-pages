@@ -548,7 +548,7 @@
   .pf-blurb { font-size: 15px; line-height: 1.9; color: #4a4a4a; max-width: 700px; margin: -8px 0 14px; }
   .pf-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
   .pf-tools span { background: var(--pink); border-radius: 999px; padding: 3px 13px; font-size: 12.5px; color: #8a6870; }
-  .pf-gallery { display: flex; flex-wrap: wrap; gap: 26px; }
+  .pf-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 26px; }
   .pf-fig { margin: 0; width: 100%; background: #fff; border: 1px solid #ece2e4; border-radius: 12px; padding: 12px 12px 14px; box-shadow: 0 8px 22px rgba(122,92,108,.09); }
   .pf-fig img { width: 100%; height: auto; display: block; border-radius: 6px; cursor: zoom-in; background: #f6f1f2; }
   .pf-fig figcaption { margin-top: 10px; font-size: 13.5px; color: var(--soft); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
@@ -563,6 +563,7 @@
   .pf-fig.tall img { max-height: 640px; width: 100%; object-fit: cover; object-position: top;
     -webkit-mask-image: linear-gradient(#000 82%, transparent); mask-image: linear-gradient(#000 82%, transparent); }
   .pf-fig.phone { width: calc(50% - 13px); }
+  .pf-fig.mid { width: calc(46% - 13px); }
   #lightbox { overflow: auto; align-items: flex-start !important; }
   #lightbox img { margin: auto; }
   #lightbox { position: fixed; inset: 0; background: rgba(40,32,36,.78); display: none; align-items: center; justify-content: center; z-index: 150; padding: 20px; cursor: zoom-out; }
@@ -1147,8 +1148,8 @@
         items: [
           { img: 'events-1.jpg', cap: '品牌公关策划案', sub: '调研分析 · 公关策略 · 主题活动' },
           { img: 'events-2.jpg', cap: '项目执行', sub: '日程 · 预算 · 风险管理' },
-          { img: 'events-3a.jpg', cap: '哈啰租车 · 商家抖音孵化计划', sub: '招募长图（上）· 项目背景 · 内容要求', cls: 'phone' },
-          { img: 'events-3b.jpg', cap: '哈啰租车 · 商家抖音孵化计划', sub: '招募长图（下）· 奖励机制 · 真实案例', cls: 'phone' },
+          { img: 'events-3a.jpg', cap: '哈啰租车 · 商家抖音孵化计划', sub: '招募长图（上）· 项目背景 · 内容要求', cls: 'mid' },
+          { img: 'events-3b.jpg', cap: '哈啰租车 · 商家抖音孵化计划', sub: '招募长图（下）· 奖励机制 · 真实案例', cls: 'mid' },
           { img: 'events-4.jpg', cap: '哈啰租车 · 放心租车节「多管一步」系列海报', sub: '国庆中秋节点 · 从0-1推进商家侧品牌组图任务，以真实门店店长故事建立信任' },
           { img: 'events-5.jpg', cap: '哈啰租车 ·「寻找100位租车验证官」UGC 线上策划', sub: '招募主海报 / 报名规则 / 权益任务 · 招募真实用户产出体验内容' },
           { img: 'events-6.jpg', cap: '哈啰租车 ·「驶上最小车展」暑期传播线下快闪', sub: '线下快闪现场 & 社媒话题传播 · 活动触达53,000+ 人次，2,300+ 人参与互动，小红书新增讨论 3300+、浏览 3.3W+' }

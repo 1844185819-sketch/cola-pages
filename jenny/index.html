@@ -1149,8 +1149,8 @@
         items: [
           { img: 'brief-m-01.jpg', cap: '哈啰租车 · 商家内容执行手册', sub: '商家 KOS 项目 · Codex 辅助完成 · 21 页', cls: 'book',
             pages: ['brief-m-01.jpg','brief-m-02.jpg','brief-m-03.jpg','brief-m-04.jpg','brief-m-05.jpg','brief-m-06.jpg','brief-m-07.jpg','brief-m-08.jpg','brief-m-09.jpg','brief-m-10.jpg','brief-m-11.jpg','brief-m-12.jpg','brief-m-13.jpg','brief-m-14.jpg','brief-m-15.jpg','brief-m-16.jpg','brief-m-17.jpg','brief-m-18.jpg','brief-m-19.jpg','brief-m-20.jpg','brief-m-21.jpg'] },
-          { img: 'brief-t-01.jpg', cap: '抖音、小红书 KOS 培训内容', sub: '商家 KOS 项目 · Codex 辅助完成 · 9 页', cls: 'book',
-            pages: ['brief-t-01.jpg','brief-t-02.jpg','brief-t-03.jpg','brief-t-04.jpg','brief-t-05.jpg','brief-t-06.jpg','brief-t-07.jpg','brief-t-08.jpg','brief-t-09.jpg'] }
+          { img: 'brief-r-01.jpg', cap: '哈啰租车 · 商家内容共创计划｜招募版', sub: '奖励设计 · Codex 辅助完成 · 2 页', cls: 'book',
+            pages: ['brief-r-01.jpg','brief-r-02.jpg'] }
         ] },
       copy: { zh: '文案 · 设计', en: '* copy & design',
         blurb: '公众号推文、SVG 互动稿、官方账号供稿，加上海报与图文排版等平面设计作品。',
@@ -1249,26 +1249,35 @@
 
     var lb = document.createElement('div'); lb.id = 'lightbox'; lb.innerHTML = '<img alt="">';
     document.body.appendChild(lb);
-    document.querySelectorAll('#pfGallery .pf-fig.book').forEach(function (fig) {
+    function setPage(fig, i) {
       var pages = JSON.parse(fig.dataset.pages);
-      var idx = 0;
+      i = (i % pages.length + pages.length) % pages.length;
+      fig.dataset.idx = i;
       var stage = fig.querySelector('.book-stage img');
-      var pg = fig.querySelector('.bk-pg');
-      var strip = fig.querySelector('.book-thumbs');
-      var thumbs = Array.prototype.slice.call(strip.querySelectorAll('img'));
-      function show(i) {
-        idx = (i + pages.length) % pages.length;
-        stage.src = IMG + pages[idx]; stage.loading = 'eager';
-        pg.textContent = (idx + 1) + ' / ' + pages.length;
-        thumbs.forEach(function (t, k) { t.classList.toggle('cur', k === idx); });
-        if (thumbs[idx].scrollIntoView) thumbs[idx].scrollIntoView({ block: 'nearest', inline: 'nearest' });
-      }
-      fig.querySelector('.bk-prev').addEventListener('click', function () { show(idx - 1); });
-      fig.querySelector('.bk-next').addEventListener('click', function () { show(idx + 1); });
-      thumbs.forEach(function (t, k) { t.addEventListener('click', function () { show(k); }); });
-    });
+      stage.src = IMG + pages[i]; stage.loading = 'eager';
+      fig.querySelector('.bk-pg').textContent = (i + 1) + ' / ' + pages.length;
+      var thumbs = fig.querySelectorAll('.book-thumbs img');
+      thumbs.forEach(function (t, k) { t.classList.toggle('cur', k === i); });
+      if (thumbs[i].scrollIntoView) thumbs[i].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
     document.getElementById('pfGallery').addEventListener('click', function (e) {
-      if (e.target.tagName === 'IMG' && !e.target.closest('.book-thumbs')) { lb.querySelector('img').src = e.target.src; lb.classList.add('show'); }
+      var fig = e.target.closest('.pf-fig.book');
+      if (!fig) {
+        if (e.target.tagName === 'IMG') { lb.querySelector('img').src = e.target.src; lb.classList.add('show'); }
+        return;
+      }
+      if (e.target.closest('.book-thumbs')) {
+        if (e.target.tagName !== 'IMG') return;
+        var thumbs = Array.prototype.slice.call(fig.querySelectorAll('.book-thumbs img'));
+        setPage(fig, thumbs.indexOf(e.target)); return;
+      }
+      var btn = e.target.closest('button');
+      if (!btn) {
+        if (e.target.tagName === 'IMG') { lb.querySelector('img').src = e.target.src; lb.classList.add('show'); }
+        return;
+      }
+      if (btn.classList.contains('bk-next')) setPage(fig, (parseInt(fig.dataset.idx || '0', 10)) + 1);
+      else if (btn.classList.contains('bk-prev')) setPage(fig, (parseInt(fig.dataset.idx || '0', 10)) - 1);
     });
     lb.addEventListener('click', function () { lb.classList.remove('show'); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.classList.remove('show'); });

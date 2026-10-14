@@ -745,13 +745,13 @@
 
   <footer>
     © 2026 Jenny · made with ♡
-    <div class="credit">♪ Rain, Book And Cup Of Tea · FSM Team &amp; escp · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+    
   </footer>
 
 </div>
 
 <button id="music-btn" aria-label="toggle music" title="music on / off"><span class="vinyl"></span><span class="note">♪</span></button>
-<audio id="bgm" src="audio/rain-book-and-cup-of-tea.m4a" loop preload="auto"></audio>
+
 
 <div class="toast" id="toast"></div>
 <script>
@@ -880,22 +880,10 @@
 </script>
 
 <script>
-  // —— 背景音乐：首次点击任意处轻声响起，右上角唱片可随时开关 ——
+  // —— 黑胶按钮：背景音乐暂下架，按钮保留占位 ——
   (function () {
-    var bgm = document.getElementById('bgm');
-    var btn = document.getElementById('music-btn');
-    var wantsMusic = false;
-    bgm.volume = 0.32;
-    function tryPlay() { if (wantsMusic && bgm.paused) bgm.play().catch(function(){}); }
-    bgm.addEventListener('play',  function(){ btn.classList.add('playing'); });
-    bgm.addEventListener('pause', function(){ btn.classList.remove('playing'); });
-    document.addEventListener('pointerdown', function (e) {
-      if (btn.contains(e.target)) return;   // 点唱片按钮走它自己的逻辑
-      if (!wantsMusic) { wantsMusic = true; tryPlay(); }
-    });
-    btn.addEventListener('click', function () {
-      if (bgm.paused) { wantsMusic = true; tryPlay(); }
-      else { wantsMusic = false; bgm.pause(); }
+    document.getElementById('music-btn').addEventListener('click', function () {
+      showToast('♪ 音乐整理中，敬请期待');
     });
   })();
 </script>

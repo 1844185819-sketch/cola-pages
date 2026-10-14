@@ -509,6 +509,75 @@
     .pop-paper { width: 74px; height: 74px; }
     .pop-paper svg { width: 44px; height: 44px; }
   }
+
+  /* ---------- 作品集：散落在盒子里的小物件 ---------- */
+  .pf-lead { text-align: center; color: var(--soft); font-family: "Kaiti SC", "STKaiti", cursive; font-size: 17px; line-height: 1.8; margin: -8px 0 22px; }
+  .pf-br { display: none; }
+  .pf-box { position: relative; width: 100%; max-width: 780px; margin: 0 auto; aspect-ratio: 760 / 500; filter: drop-shadow(0 14px 18px rgba(122,92,108,.18)); }
+  .pf-tray { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pf-item {
+    position: absolute; left: var(--x); top: var(--y); width: var(--w);
+    transform: translate(-50%, -50%) rotate(var(--r));
+    background: none; border: none; cursor: pointer; padding: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pf-item .obj { width: 100%; height: auto; display: block; overflow: visible;
+    filter: drop-shadow(0 5px 3px rgba(87,83,78,.22));
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1), filter .3s ease; }
+  .pf-item:hover .obj, .pf-item:focus-visible .obj { transform: translateY(-9px) rotate(calc(var(--r) * -0.6)) scale(1.07); filter: drop-shadow(0 12px 7px rgba(87,83,78,.22)); }
+  .pf-item:active .obj { transform: translateY(-3px) scale(.98); }
+  .pf-item:focus-visible { outline: none; }
+  .pf-tag {
+    display: flex; flex-direction: column; align-items: center; line-height: 1.25;
+    background: #fffaf0; border: 1.4px solid #57534e; border-radius: 6px;
+    padding: 3px 9px 3px; font-size: 11.5px; color: var(--ink); white-space: nowrap;
+    transform: rotate(calc(var(--r) * -1)); box-shadow: 0 2px 0 rgba(87,83,78,.12);
+    position: relative;
+  }
+  .pf-tag b { font-family: "Special Elite", "Courier New", monospace; font-weight: 400; font-size: 12.5px; letter-spacing: .04em; }
+  .pf-item:hover .pf-tag { background: #fde9ed; }
+  .page-view.active .pf-item { animation: pfToss .8s cubic-bezier(.3,1.3,.6,1) both; animation-delay: calc(var(--k) * .09s + .2s); }
+  @keyframes pfToss {
+    0% { opacity: 0; transform: translate(-50%, calc(-50% - 90px)) rotate(calc(var(--r) - 25deg)) scale(.85); }
+    60% { opacity: 1; }
+    100% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--r)) scale(1); }
+  }
+
+  /* 作品子页 */
+  .pf-blurb { font-size: 15px; line-height: 1.9; color: #4a4a4a; max-width: 700px; margin: -8px 0 14px; }
+  .pf-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .pf-tools span { background: var(--pink); border-radius: 999px; padding: 3px 13px; font-size: 12.5px; color: #8a6870; }
+  .pf-gallery { display: grid; grid-template-columns: 1fr; gap: 26px; }
+  .pf-fig { margin: 0; background: #fff; border: 1px solid #ece2e4; border-radius: 12px; padding: 12px 12px 14px; box-shadow: 0 8px 22px rgba(122,92,108,.09); }
+  .pf-fig img { width: 100%; height: auto; display: block; border-radius: 6px; cursor: zoom-in; background: #f6f1f2; }
+  .pf-fig figcaption { margin-top: 10px; font-size: 13.5px; color: var(--soft); display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+  .pf-fig figcaption b { font-family: "Kaiti SC", "STKaiti", cursive; font-weight: 400; font-size: 16px; color: var(--ink); }
+  .pf-fig figcaption a { color: #b9808c; text-decoration: none; border-bottom: 1px dotted #d9b5bc; font-size: 12.5px; }
+  .pf-more { margin-top: 44px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; color: var(--soft); font-family: "Kaiti SC", "STKaiti", cursive; font-size: 15px; }
+  #pfMore { display: flex; gap: 10px; flex-wrap: wrap; }
+  #pfMore button { width: 52px; height: 52px; border-radius: 16px; border: 1px solid #ece2e4; background: rgba(255,255,255,.92); cursor: pointer; padding: 8px; transition: transform .25s ease; }
+  #pfMore button:hover { transform: translateY(-4px); }
+  #pfMore svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  #lightbox { position: fixed; inset: 0; background: rgba(40,32,36,.78); display: none; align-items: center; justify-content: center; z-index: 150; padding: 20px; cursor: zoom-out; }
+  #lightbox.show { display: flex; }
+  #lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+
+  @media (max-width: 640px) {
+    .pf-br { display: inline; }
+    .pf-box { aspect-ratio: 360 / 560; }
+    .pf-item { left: var(--mx); top: var(--my); width: var(--mw); }
+    .pf-tag { font-size: 10.5px; padding: 2px 7px; }
+    .pf-tag b { font-size: 11.5px; }
+    @keyframes pfToss {
+      0% { opacity: 0; transform: translate(-50%, calc(-50% - 70px)) rotate(calc(var(--r) - 25deg)) scale(.85); }
+      60% { opacity: 1; }
+      100% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--r)) scale(1); }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) { .page-view.active .pf-item { animation: none; } }
+  .pf-tray-m { display: none; }
+  @media (max-width: 640px) { .pf-tray-d { display: none; } .pf-tray-m { display: block; } }
 </style>
 </head>
 <body>
@@ -729,10 +798,176 @@
   <section id="portfolio" class="page-view">
     <button class="back-btn" data-back>← 回到资料夹</button>
     <div class="sec-title"><span class="zh">作品集</span><span class="en">* portfolio</span></div>
-    <div class="portfolio-soon">
-      <span class="hand2">✿ 整理中，敬请期待</span>
-      <span>这里之后会放上我的策划案例与内容作品</span>
+    <p class="pf-lead">盒子里散着六样小物件，每一样都是我的一项本事——<br class="pf-br">挑一个，点开看看 ✿</p>
+    <div class="pf-box" id="pfBox">
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <pattern id="ticking" width="22" height="22" patternUnits="userSpaceOnUse">
+            <rect width="22" height="22" fill="#fbf3e6"/>
+            <rect x="0" width="5" height="22" fill="#d5e0ef"/>
+          </pattern>
+          <linearGradient id="trayShade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7a5c6c" stop-opacity=".22"/>
+            <stop offset=".16" stop-color="#7a5c6c" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="trayShadeL" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#7a5c6c" stop-opacity=".16"/>
+            <stop offset=".07" stop-color="#7a5c6c" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg class="pf-tray pf-tray-d" viewBox="0 0 760 500" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="14" y="16" width="732" height="472" rx="34" fill="#f0cdd3" stroke="#57534e" stroke-width="2.4"/>
+        <rect x="32" y="32" width="696" height="440" rx="24" fill="#e7b7c0" stroke="#57534e" stroke-width="2"/>
+        <rect x="46" y="46" width="668" height="412" rx="16" fill="url(#ticking)" stroke="#57534e" stroke-width="2"/>
+        <rect x="46" y="46" width="668" height="412" rx="16" fill="url(#trayShade)"/>
+        <rect x="46" y="46" width="668" height="412" rx="16" fill="url(#trayShadeL)"/>
+        <!-- 蝴蝶结 -->
+        <g transform="translate(78 30)" stroke="#57534e" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M0 0C-14-16-34-12-30 2C-27 14-10 10 0 0z" fill="#c9d8ec"/>
+          <path d="M0 0C14-16 34-12 30 2C27 14 10 10 0 0z" fill="#c9d8ec"/>
+          <path d="M-4 6l-9 22 8-4 3 7 6-22z" fill="#b6c9e3"/>
+          <path d="M4 6l9 22-8-4-3 7-6-22z" fill="#b6c9e3"/>
+          <circle r="6.5" fill="#dbe6f4"/>
+        </g>
+        <!-- 小吊牌 -->
+        <g transform="translate(676 462) rotate(-8)" stroke="#57534e" stroke-width="1.8" stroke-linejoin="round">
+          <path d="M-34-14h56l12 14-12 14h-56z" fill="#f8ecd0"/>
+          <circle cx="24" cy="0" r="3.2" fill="#fff"/>
+          <text x="-6" y="4" text-anchor="middle" font-family="Special Elite, Courier New, monospace" font-size="11" fill="#57534e" stroke="none">no. 06</text>
+        </g>
+        <!-- 碎纸屑 -->
+        <g stroke="none" opacity=".9">
+          <path d="M96 420c-7-5-10-9-10-13a5 5 0 0 1 10-1.5 5 5 0 0 1 10 1.5c0 4-3 8-10 13z" fill="#f4d7de"/>
+          <path d="M660 84l2.4 8.4 8.4 2.4-8.4 2.4-2.4 8.4-2.4-8.4-8.4-2.4 8.4-2.4z" fill="#f5e0a8"/>
+          <path d="M392 438l1.8 6 6 1.8-6 1.8-1.8 6-1.8-6-6-1.8 6-1.8z" fill="#bcd0ec"/>
+          <circle cx="332" cy="86" r="4" fill="#eeb7c1"/>
+          <circle cx="612" cy="424" r="3.4" fill="#cfe0d1"/>
+        </g>
+      </svg>
+      <svg class="pf-tray pf-tray-m" viewBox="0 0 360 560" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="7" y="12" width="346" height="536" rx="30" fill="#f0cdd3" stroke="#57534e" stroke-width="2.4"/>
+        <rect x="18" y="24" width="324" height="512" rx="22" fill="#e7b7c0" stroke="#57534e" stroke-width="2"/>
+        <rect x="28" y="34" width="304" height="492" rx="14" fill="url(#ticking)" stroke="#57534e" stroke-width="2"/>
+        <rect x="28" y="34" width="304" height="492" rx="14" fill="url(#trayShade)"/>
+        <g transform="translate(50 26) scale(.8)" stroke="#57534e" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M0 0C-14-16-34-12-30 2C-27 14-10 10 0 0z" fill="#c9d8ec"/><path d="M0 0C14-16 34-12 30 2C27 14 10 10 0 0z" fill="#c9d8ec"/>
+          <path d="M-4 6l-9 22 8-4 3 7 6-22z" fill="#b6c9e3"/><path d="M4 6l9 22-8-4-3 7-6-22z" fill="#b6c9e3"/><circle r="6.5" fill="#dbe6f4"/>
+        </g>
+        <g transform="translate(296 536) rotate(-8)" stroke="#57534e" stroke-width="1.8" stroke-linejoin="round">
+          <path d="M-34-14h56l12 14-12 14h-56z" fill="#f8ecd0"/><circle cx="24" cy="0" r="3.2" fill="#fff"/>
+          <text x="-6" y="4" text-anchor="middle" font-family="Special Elite, Courier New, monospace" font-size="11" fill="#57534e" stroke="none">no. 06</text>
+        </g>
+        <g stroke="none" opacity=".9">
+          <path d="M52 505c-7-5-10-9-10-13a5 5 0 0 1 10-1.5 5 5 0 0 1 10 1.5c0 4-3 8-10 13z" fill="#f4d7de"/>
+          <path d="M310 70l2.4 8.4 8.4 2.4-8.4 2.4-2.4 8.4-2.4-8.4-8.4-2.4 8.4-2.4z" fill="#f5e0a8"/>
+          <circle cx="178" cy="258" r="4" fill="#eeb7c1"/><circle cx="60" cy="300" r="3.4" fill="#cfe0d1"/>
+        </g>
+      </svg>
+
+      <!-- 1 文案写作 · 钢笔 -->
+      <button class="pf-item" data-pf="writing" aria-label="文案写作" style="--x:20%;--y:33%;--w:17%;--r:-8deg;--mx:27%;--my:20%;--mw:30%;--k:0">
+        <svg class="obj" viewBox="0 0 100 100" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <g transform="rotate(38 50 50)">
+            <rect x="39" y="5" width="22" height="58" rx="8" fill="#a9bedb"/>
+            <path d="M39 22h22" /><path d="M39 27h22"/>
+            <path d="M56 11v8" stroke="#fbf3e6" stroke-width="2.6"/>
+            <path d="M42 63h16l-3 14H45z" fill="#f5e0a8"/>
+            <path d="M45 77h10l-5 19z" fill="#fbf3e6"/>
+            <path d="M50 81v10"/><circle cx="50" cy="82.5" r="1.5" fill="#57534e" stroke="none"/>
+          </g>
+          <path d="M16 84c5-4 8 3 13-1s6-5 10-3" stroke="#e8b4bd" stroke-width="2"/>
+          <path d="M82 12l1.3 2.7 2.7 1.3-2.7 1.3L82 20l-1.3-2.7-2.7-1.3 2.7-1.3z" fill="#f5e0a8" stroke="none"/>
+        </svg>
+        <span class="pf-tag"><b>Writing</b>文案写作</span>
+      </button>
+
+      <!-- 2 活动策划&公关 · 入场券 -->
+      <button class="pf-item" data-pf="events" aria-label="活动策划与公关" style="--x:50%;--y:30%;--w:21%;--r:6deg;--mx:73%;--my:21%;--mw:34%;--k:1">
+        <svg class="obj" viewBox="0 0 100 100" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 28h80v16a6 6 0 0 0 0 12v16H10V56a6 6 0 0 0 0-12z" fill="#f4cfd6"/>
+          <path d="M16 34h56v32H16z" stroke="#fbf3e6" stroke-width="1.6" stroke-dasharray="3 3"/>
+          <path d="M78 33v34" stroke-dasharray="2.5 3.5" stroke-width="1.8"/>
+          <path d="M44 38l3.2 6.6 7.2 1-5.2 5.1 1.2 7.2-6.4-3.4-6.4 3.4 1.2-7.2-5.2-5.1 7.2-1z" fill="#f5e0a8"/>
+          <text x="84" y="53" text-anchor="middle" font-family="Special Elite, Courier New, monospace" font-size="6" fill="#57534e" stroke="none" transform="rotate(90 84 50)">ADMIT ONE</text>
+        </svg>
+        <span class="pf-tag"><b>Events &amp; PR</b>活动策划 · 公关</span>
+      </button>
+
+      <!-- 3 拍摄剪辑 · 复古相机 -->
+      <button class="pf-item" data-pf="film" aria-label="拍摄与剪辑" style="--x:80%;--y:33%;--w:22%;--r:-5deg;--mx:27%;--my:47%;--mw:34%;--k:2">
+        <svg class="obj" viewBox="0 0 100 100" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 30l3-6h14l3 6z" fill="#fbf3e6"/>
+          <rect x="68" y="23" width="10" height="7" rx="2" fill="#f5d98f"/>
+          <rect x="10" y="30" width="80" height="50" rx="9" fill="#a9bedb"/>
+          <path d="M10 46V39a9 9 0 0 1 9-9h62a9 9 0 0 1 9 9v7z" fill="#fbf3e6"/>
+          <rect x="17" y="35" width="15" height="7" rx="2" fill="#fff"/>
+          <circle cx="50" cy="60" r="19" fill="#fbf3e6"/>
+          <circle cx="50" cy="60" r="12.5" fill="#7f98ba"/>
+          <circle cx="50" cy="60" r="5.5" fill="#57534e" stroke="none" opacity=".75"/>
+          <circle cx="45.5" cy="55.5" r="2.4" fill="#fff" stroke="none"/>
+          <circle cx="80" cy="40" r="2.4" fill="#eeb7c1"/>
+          <path d="M16 74h10" stroke="#fbf3e6"/>
+        </svg>
+        <span class="pf-tag"><b>Film &amp; Photo</b>拍摄 · 剪辑</span>
+      </button>
+
+      <!-- 4 账号运营 · 手机 -->
+      <button class="pf-item" data-pf="account" aria-label="账号运营" style="--x:22%;--y:70%;--w:14%;--r:9deg;--mx:73%;--my:49%;--mw:25%;--k:3">
+        <svg class="obj" viewBox="0 0 100 100" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="28" y="5" width="44" height="88" rx="10" fill="#fbf3e6"/>
+          <rect x="33" y="15" width="34" height="62" rx="4" fill="#dbe6f4"/>
+          <rect x="36" y="19" width="13" height="16" rx="2" fill="#f4cfd6" stroke-width="1.6"/>
+          <rect x="51" y="19" width="13" height="11" rx="2" fill="#f8ecd0" stroke-width="1.6"/>
+          <rect x="36" y="38" width="13" height="11" rx="2" fill="#cfe0d1" stroke-width="1.6"/>
+          <rect x="51" y="33" width="13" height="16" rx="2" fill="#fff" stroke-width="1.6"/>
+          <path d="M37 54h26M37 60h18M37 66h22" stroke-width="1.6"/>
+          <path d="M44 85h12"/>
+          <circle cx="72" cy="20" r="11" fill="#eeb7c1"/>
+          <path d="M72 26c-5-3.4-7-6-7-8.2a3.4 3.4 0 0 1 7-.6 3.4 3.4 0 0 1 7 .6c0 2.200-2 4.800-7 8.200z" fill="#fff" stroke-width="1.6"/>
+        </svg>
+        <span class="pf-tag"><b>Accounts</b>账号运营</span>
+      </button>
+
+      <!-- 5 平面设计 · 调色盘 -->
+      <button class="pf-item" data-pf="design" aria-label="平面设计" style="--x:50%;--y:71%;--w:20%;--r:-8deg;--mx:27%;--my:75%;--mw:33%;--k:4">
+        <svg class="obj" viewBox="0 0 100 100" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 54C9 30 34 14 60 16c24 2 32 24 18 36-8 7-17 1-23 9-6 9 4 22-13 24C28 87 14 74 12 54z" fill="#f6e9cf"/>
+          <ellipse cx="34" cy="62" rx="6" ry="5" fill="#fff"/>
+          <circle cx="27" cy="40" r="6" fill="#eeb7c1"/>
+          <circle cx="43" cy="30" r="6" fill="#f5d98f"/>
+          <circle cx="61" cy="30" r="6" fill="#a9bedb"/>
+          <circle cx="74" cy="42" r="6" fill="#cfe0d1"/>
+          <path d="M60 80L90 40" stroke-width="3.2"/>
+          <path d="M90 40l4-6" stroke="#e8a5b2" stroke-width="5"/>
+        </svg>
+        <span class="pf-tag"><b>Design</b>平面设计</span>
+      </button>
+
+      <!-- 6 数据分析 · 放大镜 + 报表 -->
+      <button class="pf-item" data-pf="data" aria-label="数据分析" style="--x:79%;--y:70%;--w:19%;--r:10deg;--mx:73%;--my:76%;--mw:31%;--k:5">
+        <svg class="obj" viewBox="0 0 100 100" fill="none" stroke="#57534e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="10" y="12" width="60" height="70" rx="7" fill="#fff"/>
+          <rect x="21" y="52" width="9" height="20" rx="1.5" fill="#a9bedb"/>
+          <rect x="35" y="38" width="9" height="34" rx="1.5" fill="#eeb7c1"/>
+          <rect x="49" y="46" width="9" height="26" rx="1.5" fill="#f5d98f"/>
+          <path d="M17 72h47"/><path d="M19 24h22M19 30h14" stroke-width="1.8"/>
+          <circle cx="66" cy="62" r="19" fill="#dbe6f4" fill-opacity=".6"/>
+          <path d="M57 55a11 11 0 0 1 8-5" stroke="#fff" stroke-width="2.2"/>
+          <path d="M80 76l13 14" stroke-width="5.200"/>
+        </svg>
+        <span class="pf-tag"><b>Data</b>数据分析</span>
+      </button>
     </div>
+  </section>
+
+  <section id="pf-detail" class="page-view">
+    <button class="back-btn" id="pfBack">← 回到盒子</button>
+    <div class="sec-title" id="pfTitle"></div>
+    <p class="pf-blurb" id="pfBlurb"></p>
+    <div class="pf-tools" id="pfTools"></div>
+    <div class="pf-gallery" id="pfGallery"></div>
+    <div class="pf-more"><span>盒子里还有 →</span><div id="pfMore"></div></div>
   </section>
 
   <section class="contact" id="contact">
@@ -768,7 +1003,6 @@
     const sec = document.getElementById(id);
     sec.classList.add('active');
     requestAnimationFrame(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-    if (id === 'portfolio') showToast('作品集整理中，敬请期待 ✿');
   }
 
   function backToFolder() {
@@ -885,6 +1119,100 @@
     document.getElementById('music-btn').addEventListener('click', function () {
       showToast('♪ 音乐整理中，敬请期待');
     });
+  })();
+</script>
+<script>
+  // —— 作品集：盒子里的小物件 → 对应能力子页 ——
+  (function () {
+    var IMG = 'images/pf/';
+    var PF = {
+      writing: { zh: '文案写作', en: '* writing',
+        blurb: '公众号推文、SVG 互动稿，也为市红十字会、研究生院等官方账号供稿、供图。',
+        tools: ['公众号推文', 'SVG 互动', '新闻稿件'],
+        items: [
+          { img: 'writing-1.jpg', cap: '公众号作品', sub: '01 · 02', link: 'https://mp.weixin.qq.com/s/VEQ010b6o499NpPgX87dJg' },
+          { img: 'writing-2.jpg', cap: 'SVG 互动作品', sub: '03 · 04', link: 'https://mp.weixin.qq.com/s/v3u7sl_4NMJxI8LFjEgmEw' },
+          { img: 'writing-3.jpg', cap: '公众号专题', sub: '05 · 06 · 07' },
+          { img: 'writing-4.jpg', cap: '官方账号供稿', sub: '为市红十字会、研究生院供稿、供图，并发布在官方账号上' }
+        ] },
+      events: { zh: '活动策划 · 公关', en: '* events & pr',
+        blurb: '一份完整的品牌公关策划案：从调研分析、公关主题，到活动分期与执行落地。',
+        tools: ['PPT 策划案', 'PEST / SWOT', '活动执行'],
+        items: [
+          { img: 'events-1.jpg', cap: '品牌公关策划案', sub: '调研分析 · 公关策略 · 主题活动' },
+          { img: 'events-2.jpg', cap: '项目执行', sub: '日程 · 预算 · 风险管理' }
+        ] },
+      film: { zh: '拍摄 · 剪辑', en: '* film & photo',
+        blurb: '用镜头记录人——纪录片、短视频，以及风光、人像、静物摄影。',
+        tools: ['剪映', 'Premiere Pro', 'Sony', 'iPhone'],
+        items: [
+          { img: 'doc-1.jpg', cap: '《她的书》', sub: '非遗传承 · 女书纪录片' },
+          { img: 'doc-2.jpg', cap: '《Be nice》', sub: '冰奶昔乐队纪录片' },
+          { img: 'doc-3.jpg', cap: '《她说》', sub: '女性脱口秀演员纪录片' },
+          { img: 'video-1.jpg', cap: '短视频 · “老有意思了”', sub: '小红书、抖音同号 · 关注独居、空巢老人，定格银发群体的美好瞬间' },
+          { img: 'video-2.jpg', cap: '短视频 · “一刷一漱”', sub: '治愈你的吃喝小确幸 · 云南白药活性肽牙膏推广短视频' },
+          { img: 'photo-1.jpg', cap: '摄影 · 风光' },
+          { img: 'photo-2.jpg', cap: '摄影 · 人像' },
+          { img: 'photo-3.jpg', cap: '摄影 · 静物' }
+        ] },
+      account: { zh: '账号运营', en: '* accounts',
+        blurb: '小红书账号 marks 的运营：从选题、文案到图文排版的整套内容。',
+        tools: ['小红书', '图文排版', '选题策划'],
+        items: [ { img: 'account-1.jpg', cap: '运营 marks 小红书账号' } ] },
+      design: { zh: '平面设计', en: '* design',
+        blurb: '海报、排版与活动单页等平面设计作品。',
+        tools: ['Canva', 'Photoshop'],
+        items: [
+          { img: 'design-1.jpg', cap: 'Design work', sub: '总览' },
+          { img: 'design-2.jpg', cap: '设计作品', sub: '01 · 02 · 03' },
+          { img: 'design-3.jpg', cap: '设计作品', sub: '04' }
+        ] },
+      data: { zh: '数据分析', en: '* data',
+        blurb: '会用 Python、SQL 做数据抓取、清洗与查询，并借助 AI 工具把代码跑通。',
+        tools: ['Python', 'SQL', '八爪鱼', 'VLOOKUP'],
+        items: [
+          { img: 'data-1.jpg', cap: '实习数据产出', sub: '在茉莉数科实习期间' },
+          { img: 'data-2.jpg', cap: '数据新闻《键盘下的暴力》', sub: '负责数据爬取、清洗与文字撰写 · 3214 条结果 → 爬取 996 条 → 整理 114 件网络暴力事件' },
+          { img: 'data-3.jpg', cap: '技能与方法', sub: '抓取 · 清洗 · 查询' }
+        ] }
+    };
+    var ORDER = ['writing', 'events', 'film', 'account', 'design', 'data'];
+
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    function openPf(key) {
+      var d = PF[key]; if (!d) return;
+      document.getElementById('pfTitle').innerHTML = '<span class="zh">' + esc(d.zh) + '</span><span class="en">' + esc(d.en) + '</span>';
+      document.getElementById('pfBlurb').textContent = d.blurb;
+      document.getElementById('pfTools').innerHTML = d.tools.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
+      document.getElementById('pfGallery').innerHTML = d.items.map(function (it) {
+        return '<figure class="pf-fig"><img src="' + IMG + it.img + '" alt="' + esc(it.cap) + '" loading="lazy">' +
+          '<figcaption><b>' + esc(it.cap) + '</b>' + (it.sub ? '<span>' + esc(it.sub) + '</span>' : '') +
+          (it.link ? '<a href="' + it.link + '" target="_blank" rel="noopener">原文链接 ↗</a>' : '') + '</figcaption></figure>';
+      }).join('');
+      var more = document.getElementById('pfMore'); more.innerHTML = '';
+      ORDER.filter(function (k) { return k !== key; }).forEach(function (k) {
+        var b = document.createElement('button');
+        b.title = PF[k].zh; b.setAttribute('aria-label', PF[k].zh);
+        b.appendChild(document.querySelector('.pf-item[data-pf="' + k + '"] .obj').cloneNode(true));
+        b.addEventListener('click', function () { openPf(k); });
+        more.appendChild(b);
+      });
+      openView('pf-detail');
+    }
+
+    document.querySelectorAll('.pf-item').forEach(function (b) {
+      b.addEventListener('click', function () { openPf(b.dataset.pf); });
+    });
+    document.getElementById('pfBack').addEventListener('click', function () { openView('portfolio'); });
+
+    var lb = document.createElement('div'); lb.id = 'lightbox'; lb.innerHTML = '<img alt="">';
+    document.body.appendChild(lb);
+    document.getElementById('pfGallery').addEventListener('click', function (e) {
+      if (e.target.tagName === 'IMG') { lb.querySelector('img').src = e.target.src; lb.classList.add('show'); }
+    });
+    lb.addEventListener('click', function () { lb.classList.remove('show'); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.classList.remove('show'); });
   })();
 </script>
 </body>

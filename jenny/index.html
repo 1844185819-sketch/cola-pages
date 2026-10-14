@@ -1217,7 +1217,7 @@
       document.getElementById('pfGallery').innerHTML = d.items.length ? d.items.map(function (it) {
         if (it.cls === 'book') {
           var pages = JSON.stringify(it.pages).replace(/"/g, '&quot;');
-          return '<figure class="pf-fig book" data-pages="' + esc(pages) + '">' +
+          return '<figure class="pf-fig book" data-pages="' + pages + '">' +
             '<div class="book-stage"><img src="' + IMG + it.pages[0] + '" alt="' + esc(it.cap) + '"></div>' +
             '<div class="book-bar"><button class="bk-prev" aria-label="上一页">←</button>' +
             '<span class="bk-pg">1 / ' + it.pages.length + '</span>' +
